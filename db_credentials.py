@@ -16,10 +16,3 @@ mysql_db_config = [
     'host': 'localhost',
     'database': 'transactions',
   }
-#  {
-#    'user': 'your_user_2',
-#    'password': 'your_password_2',
-#    'host': 'db_connection_string_2',
-#    'database': 'db_2',
-#  },
-]
