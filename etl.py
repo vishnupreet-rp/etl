@@ -2,15 +2,6 @@
 import pymysql
 import pyodbc
 from datetime import datetime
-# import fdb
-import sqlite3
-# variables
-#from variables import datawarehouse_name
-
-def source_fields_check(query, source_cnx, target_cnx):
-    source_cursor = source_cnx.cursor()
-    source_cursor.execute(query.columns_check)
-    print([col[0] for col in source_cursor.fetchall()])
 
 
 def etl(query, source_cnx, target_cnx):
