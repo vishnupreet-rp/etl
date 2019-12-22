@@ -15,6 +15,10 @@ def etl(query, source_cnx, target_cnx):
 
     # load data into warehouse db
     if data:
+        # --------------QQ:
+        # Is this a good model to use between SET or PROCEDURAL operation
+        # https://www.codeproject.com/Articles/34142/Understanding-Set-based-and-Procedural-approaches
+        # --------------
         target_cursor = target_cnx.cursor()
         # target_cursor.execute("USE {}".format(datawarehouse_name))
         target_cursor.executemany(query.load_query, data)
