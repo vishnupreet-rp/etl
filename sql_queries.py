@@ -1,9 +1,91 @@
+# ---------QQ:
+# I would like undertand this better. Let us DISCUSS
+# I prefer picking up the highest id first, log it and them use the variabel to 
+# start fetching the reconds from roxy table.
+# ---------
 mysql_extract = ('''
-  SELECT * FROM roxy r WHERE r.bookinginfoid > (SELECT l.highest_id FROM log_table l WHERE l.job_name='roxy' AND job_status='success' ORDER BY l.batch_id DESC LIMIT 1) LIMIT 5
-''')
+  SELECT * FROM roxy r WHERE r.bookinginfoid > 
+  (SELECT l.highest_id FROM log_table l 
+          WHERE l.job_name='roxy' 
+          AND job_status='success' 
+          ORDER BY l.batch_id DESC LIMIT 1) LIMIT 5
+  ''')
 
 mysql_insert = ('''
-  INSERT INTO roxy_datawarehouse (bookinginfoid, userid, usersessionid, movieid, moviename, genre, language, cityid, cinemaid, cinemaname, screenname, rating, bookingid, vistabookingno, vistatransno, sessionid, noofseats, showdate, showtime, ticketamount, foodamount, totalamount, bookingdate, seatinfo, tickettypecode, ticketdescription, vistastatus, recheckvistastatus, pgcross, pgstatus, refundstatus, emailstatus, smsstatus, recheckemailstatus, rechecksmsstatus, seatdetails, fooddesc, PaymentMessage, VistaRecheckMessage, SMSResponse, Platform, offeramount, couponapplied, pgtoken, cardnumber, resendcount, offerno, offertype, offeravailable, vatavailable, vatvalue, vatpercentage, pgcrosstime, pgresponsetime, pgsourcefrom, pgresponse, whatnewtype, PaymentMethod, gccardnumber, gcbalance, gcafterbalance,	gcpayment, Partialamount, screenid, experience,	DiscountAmount,	currentbalance,	beforebalance, ticketdiscount,	fnbdiscount, loyaltytier, EarnedPoint, ReedemPoint, Type)
+  INSERT INTO roxy_datawarehouse (bookinginfoid,
+                                  userid,
+                                  usersessionid,
+                                  movieid,
+                                  moviename,
+                                  genre,
+                                  language,
+                                  cityid,
+                                  cinemaid,
+                                  cinemaname,
+                                  screenname,
+                                  rating,
+                                  bookingid,
+                                  vistabookingno,
+                                  vistatransno,
+                                  sessionid,
+                                  noofseats,
+                                  showdate,
+                                  showtime,
+                                  ticketamount,
+                                  foodamount,
+                                  totalamount,
+                                  bookingdate,
+                                  seatinfo,
+                                  tickettypecode,
+                                  ticketdescription,
+                                  vistastatus,
+                                  recheckvistastatus,
+                                  pgcross,
+                                  pgstatus,
+                                  refundstatus,
+                                  emailstatus,
+                                  smsstatus,
+                                  recheckemailstatus,
+                                  rechecksmsstatus,
+                                  seatdetails,
+                                  fooddesc,
+                                  PaymentMessage,
+                                  VistaRecheckMessage,
+                                  SMSResponse,
+                                  Platform,
+                                  offeramount,
+                                  couponapplied,
+                                  pgtoken,
+                                  cardnumber,
+                                  resendcount,
+                                  offerno,
+                                  offertype,
+                                  offeravailable,
+                                  vatavailable,
+                                  vatvalue,
+                                  vatpercentage,
+                                  pgcrosstime,
+                                  pgresponsetime,
+                                  pgsourcefrom,
+                                  pgresponse,
+                                  whatnewtype,
+                                  PaymentMethod,
+                                  gccardnumber,
+                                  gcbalance,
+                                  gcafterbalance,
+                                  gcpayment,
+                                  Partialamount,
+                                  screenid,
+                                  experience,
+                                  DiscountAmount,
+                                  currentbalance,
+                                  beforebalance,
+                                  ticketdiscount,
+                                  fnbdiscount,
+                                  loyaltytier,
+                                  EarnedPoint,
+                                  ReedemPoint,
+                                  Type)
   VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)  
 ''')
 
