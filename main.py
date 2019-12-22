@@ -26,6 +26,11 @@ def main():
       error_insert = ('''INSERT INTO log_table (`job_name`, `failure_reason`) VALUES (%s, %s)''')
       error_params = ('roxy', str(error))
       tcur.execute(error_insert, error_params)
+    # -------QQ:
+    # Based on my newbie understanding of Python, I think your  
+    # target DB and your log DB are the same. It will be good to keep 
+    # logs/telemetry on seperate DB. Let us discuss WHY?
+    # -------	
       target_cnx.commit()
       continue
 
