@@ -11,6 +11,12 @@ def etl(query, source_cnx, target_cnx):
     start_time = datetime.now()
     source_cursor.execute(query.extract_query)
     data = source_cursor.fetchall()
+    # ------QQ
+    # I think FETCHALL is non-deterministic and you might fail based on 
+    # number of records you are fetching & resource availabilty on your target server
+    # It is better to go with deterministic model FETCHMANY(size)
+    # So that you know your tested limits/resource utilization and can adjust as needed 
+    # --------
     source_cursor.close()
     # -------QQ:
     # It is good to catch and log duration for getting the data from source
@@ -25,6 +31,12 @@ def etl(query, source_cnx, target_cnx):
         target_cursor = target_cnx.cursor()
         # target_cursor.execute("USE {}".format(datawarehouse_name))
         target_cursor.executemany(query.load_query, data)
+        # -----QQ
+        # I think you have right choice above. 
+        # By calling the  executemany() method of the MySQLCursor object, 
+        # the MySQL Connector/Python translates the  INSERT statement into 
+        # the one that contains multiple lists of values
+        # -------
         target_cnx.commit()
         # -------QQ:
         # Measure duration elapsed in milliseconds for Target write operation
@@ -43,6 +55,10 @@ def etl(query, source_cnx, target_cnx):
                               end_time, (lowest_id+1), highest_id, 'success')
         target_cursor.execute(log_table_insert_query, log_table_insert_params)
         target_cnx.commit()
+        # --------QQ
+        # I'm not a MySQL expert. Is that every insert/update has to use CURSOR
+        # In TSQL world, CURSOR is bad choice for the reasons discussed above
+        # --------
         target_cursor.close()
     else:
         print('data empty')
